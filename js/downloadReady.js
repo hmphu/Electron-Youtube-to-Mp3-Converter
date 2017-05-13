@@ -26,8 +26,8 @@ var window = remote.getCurrentWindow();
         item.once('done', (event, state) => {
           if (state === 'completed') {
             window.notifier.notify({
-              title: 'Download completed',
-              message: 'The song ' + songName + 'has been downloaded sucessfully',
+              title: 'Tải nhạc hoàn tất',
+              message: 'Bài hát ' + songName + ' đã được tải thành công',
               sound: true, // Only Notification Center or Windows Toasters
               wait: false // Wait with callback, until user action is taken against notification
             }, function (err, response) {
@@ -48,7 +48,7 @@ var window = remote.getCurrentWindow();
     });
   }
   catch(err) {
-      alert("Error, Please restart the application");
+    alert("Có lỗi xảy ra, Vui lòng đóng chương trình và mở lại");
   }
 
 

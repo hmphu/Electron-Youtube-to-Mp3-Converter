@@ -26,7 +26,7 @@
 				}
 				// if(yt_data.status!=='ok'){ajax_get_json(id);}
 				if (yt_data.status == 'timeout') {
-					results.innerHTML = "<p style='top: 40vh;' id='Down' >Video is in a queue, please wait  <img style='line-hight:20px;' src='img/loader.gif' width='13px' height='13px' /></p>";
+					results.innerHTML = "<p style='top: 40vh;' id='Down' >Video đang được xử lý, vui lòng đợi một lát  <img style='line-hight:20px;' src='img/loader.gif' width='13px' height='13px' /></p>";
 					setTimeout(function () {
 						ajax_get_json(id);
 					}, 5000);
@@ -36,12 +36,12 @@
 
 						if (yt_data.url !== undefined) {
 							playAudio('ready');
-							results.innerHTML = "<div id='loader'></div><p id='Down'>" + yt_data.title + "<br><br> <a  href=http:" + yt_data.url + "> Download </a> <br> </p>";
+							results.innerHTML = "<div id='loader'></div><p id='Down'>" + yt_data.title + "<br><br> <a  href=http:" + yt_data.url + "> Tải </a> <br> </p>";
 							$("#results").css("background-image", "url(" + yt_data.thumbnail + ")");
 							dReady();
 						} else {
 							$("#results").css("background-image", "url(" + yt_data.thumbnail + ")");
-							results.innerHTML = "<p style='top: 40vh;' id='Down' >Video is in a queue, please wait  <img style='line-hight:20px;' src='img/loader.gif' width='13px' height='13px' /></p>";
+							results.innerHTML = "<p style='top: 40vh;' id='Down' >Video đang được xử lý, vui lòng đợi một lát  <img style='line-hight:20px;' src='img/loader.gif' width='13px' height='13px' /></p>";
 							setTimeout(function () {
 								ajax_get_json(id);
 							}, 5000);
@@ -50,7 +50,7 @@
 
 					} catch (e) {
 						playAudio('error');
-						alert("Error, Please restart the application");
+						alert("Có lỗi xảy ra, Vui lòng đóng chương trình và mở lại");
 					}
 
 				}
@@ -92,9 +92,9 @@
 	</div>
 
 
-<div id="results">
+<div id="results" style="background-image: url(img/ytb.png);background-size: contain;background-repeat: no-repeat;">
 	<div id="help">
-		Past a valid youtube link..
+		Nhập một link Youtube
 	</div>
 </div>
 
