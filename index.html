@@ -20,6 +20,7 @@
 			var k = document.getElementById('key').value;
 			$.getJSON('http://www.yt-mp3.com/fetch?v=' + id + '&apikey=' + k, function (yt_data) {
 				if (yt_data.status == 'error') {
+					playAudio('error');
 					results.innerHTML = "<p style='top: 40vh;' id='Down' >" + yt_data.message + "</p>";
 					return false;
 				}
@@ -34,6 +35,7 @@
 					try {
 
 						if (yt_data.url !== undefined) {
+							playAudio('ready');
 							results.innerHTML = "<div id='loader'></div><p id='Down'>" + yt_data.title + "<br><br> <a  href=http:" + yt_data.url + "> Download </a> <br> </p>";
 							$("#results").css("background-image", "url(" + yt_data.thumbnail + ")");
 							dReady();
@@ -47,6 +49,7 @@
 
 
 					} catch (e) {
+						playAudio('error');
 						alert("Error, Please restart the application");
 					}
 
@@ -68,7 +71,7 @@
 
 	<div class="titlebar">
 		<audio id="myAudio">
-			<source src="audio/s.mp3" type="audio/mpeg">
+			<source src="audio/ready.mp3" type="audio/mpeg">
 		</audio>
 		<div class="buttons">
 			<div title="close" class="close" id='close-btn'>
@@ -84,7 +87,7 @@
 				<!-- zoom button link -->
 			</div>
 		</div>
-		<input type="text" class="textfield" name="url" onpaste="var e=this; setTimeout(function(){return runScript_paste(e.value);}, 4);" value="https://youtu.be/hlNIHMyF3-I" id="url" onkeypress="return runScript(event)">
+		<input type="text" class="textfield" name="url" onclick="this.focus();this.select()" onfocus="this.select()" onpaste="var e=this; setTimeout(function(){return runScript_paste(e.value);}, 4);" value="" id="url" onkeypress="return runScript(event)">
 	<input id='key' type="text" style='display: none;' value='no key'>
 	</div>
 
@@ -138,9 +141,15 @@
 		validateUrl(url);
 	});
 
-
-	function playAudio() {
+	function playAudio(type) {
 		var x = document.getElementById("myAudio");
+		if(typeof type == 'undefined' || type == 'ready')
+			x.src = 'audio/ready.mp3';
+		else if(type == 'error')
+			x.src = 'audio/error.mp3';
+		else
+			x.src = 'audio/done.mp3';
+		x.load();
 		x.play();
 	}
 	function testKey() {

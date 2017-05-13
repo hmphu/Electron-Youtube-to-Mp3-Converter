@@ -20,15 +20,27 @@ var window = remote.getCurrentWindow();
             }
           }
         })
+
+        var songName = item.getFilename();
+
         item.once('done', (event, state) => {
           if (state === 'completed') {
+            window.notifier.notify({
+              title: 'Download completed',
+              message: 'The song ' + songName + 'has been downloaded sucessfully',
+              sound: true, // Only Notification Center or Windows Toasters
+              wait: false // Wait with callback, until user action is taken against notification
+            }, function (err, response) {
+              // Response is response from notification
+            });
 
             $("#loader").css("background-color", "rgba(26, 188, 156,0.5)");
-            playAudio();
+            playAudio('done');
 
             setTimeout(function(){$("#loader").css({"background-color":"rgba(0, 0, 0,0)","transition":"1s"});}, 2000);
 
           } else {
+            playAudio('error');
             item.cancel()
           }
         })

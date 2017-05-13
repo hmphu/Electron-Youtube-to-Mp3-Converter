@@ -6,7 +6,7 @@ if (setupEvents.handleSquirrelEvent()) {
 }
 
 
-
+const notifier = require('node-notifier');
 const electron = require('electron')
 // Module to control application life.
 const app = electron.app
@@ -23,7 +23,8 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width:400, height: 190, transparent: true ,  resizable: false, frame:false})
+  mainWindow = new BrowserWindow({width:400, height: 190, transparent: true ,  resizable: true, frame:false})
+  mainWindow.notifier = notifier
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -44,11 +45,6 @@ function createWindow () {
 
     mainWindow = null
   })
-
-
-
-
-
 }
 
 
